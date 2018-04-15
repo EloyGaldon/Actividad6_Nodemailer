@@ -6,8 +6,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-
+        <ul class="navbar-nav justify-content-center">
             <li class="nav-item">
                 <a class="nav-link" href="#">Destinos <span class="sr-only">(current)</span></a>
             </li>
@@ -17,53 +16,43 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Dónde estamos <span class="sr-only">(current)</span></a>
             </li>
-
-            {{#if isLogged}}
-                {{#if isAdmin}}
-                    <div class="btn-group dropleft">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user-circle"></i> {{user}}
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/admins/adminpanel">Administrar Viajes</a>
-                            <a class="dropdown-item" href="/admins/userpanel">Administrar Users</a>
-                            <a class="dropdown-item" href="/users/logout">Desconectar</a>
-                        </div>
+        </ul>
+    </div>
+    <div class="logReg">
+        {{#if isLogged}}
+            {{#if isAdmin}}
+                <div class="btn-group dropleft">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-circle"></i> {{user}}
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/admins/adminpanel">Administrar Viajes</a>
+                        <a class="dropdown-item" href="/admins/userpanel">Administrar Users</a>
+                        <a class="dropdown-item" href="/users/logout">Desconectar</a>
                     </div>
-                {{else}}
-                    <div class="btn-group dropleft">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user-circle"></i> {{user}}
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Mi perfil</a>
-                            <a class="dropdown-item" href="/users/logout">Cerrar Sesión</a>
-                        </div>
-                    </div>
-                {{/if}}
-
+                </div>
             {{else}}
-                <li class="nav-item">
-                    <a class="nav-link" href="/users/signup">Registrarse <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/users/login">Iniciar Sesión</a>
-                </li>
+                <div class="btn-group dropleft">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-circle"></i> {{user}}
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Mi perfil</a>
+                        <a class="dropdown-item" href="/users/logout">Cerrar Sesión</a>
+                    </div>
+                </div>
             {{/if}}
 
-            <!--
-            <li class="nav-item">
-                <a class="nav-link" href="http://localhost:3000/auth/logout">Cerrar Sesion</a>
-            </li>
-            -->
-        </ul>
+        {{else}}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item botonLog">
+                    <a class="btn btn-sm btn-outline-secondary" href="/users/signup">Registrarse</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-sm btn-outline-secondary" href="/users/login">Iniciar Sesión</a>
+                </li>
+            </ul>
+        {{/if}}
     </div>
-    <div id="redesSociales" class="d-flex flex-row order-2 order-lg-3">
-        <ul id="rsociales" class="collapse navbar-collapse navbar-nav flex-row">
-            <li class="nav-item"><a class="nav-link px-2" href="#"><span class="fab fa-facebook-f"></span></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="#"><span class="fab fa-twitter"></span></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="#"><span class="fab fa-youtube"></span></a></li>
-            <li class="nav-item"><a class="nav-link px-2" href="#"><span class="fab fa-linkedin"></span></a></li>
-        </ul>
-    </div>
+
 </nav>

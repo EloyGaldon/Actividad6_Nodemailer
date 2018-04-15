@@ -2,19 +2,24 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu:400');
 
 @media only screen and (max-width: 991.98px) {
+   /*
     #redesSociales {
         display: none !important;
     }
+    */
 }
 .menuNav{
     z-index: 1;
+}
+.botonLog{
+    margin-right: 2vw;
 }
 .normal{
     background-color: #00091a;
     opacity:0.8;
 }
 
-#sectionDestinos{
+#sectionInicio{
     background-image: url("../images/vegas.jpg");
     background-size: cover;
     background-position: center center;
@@ -22,6 +27,27 @@
     //background-attachment: fixed;
     height: 100vh;
     max-width: 100vw;
+}
+.viaja{
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 25px;
+    height: 20em;
+    padding-top: 5em;
+    margin-top: 10%;
+    margin-left: 15%;
+    text-align: center;
+}
+.rsociales{
+    padding-top: 1em;
+    border-top: 1px solid white;
+}
+
+.logReg{
+    padding-right: 8vw;
+}
+
+.IniReg{
+
 }
 
 #sectionLogin {
@@ -431,6 +457,7 @@ footer button:hover,
     padding-bottom: 2em;
     background-color: white;
     opacity: 0.9;
+    border-radius: 15px;
 }
 
 
