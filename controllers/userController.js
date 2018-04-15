@@ -1,6 +1,6 @@
 var bcrypt = require('bcrypt-nodejs');
 var usersModel =require('.././models/usersModel');
-
+const Email=require('../config/emailConf');
 var userController = {};
 
 
@@ -12,8 +12,8 @@ userController.signUp = function (req, res, next) {
             title: 'registro',
             layout: 'templates/default',
             errorUsuario: req.flash('errorUsuario'),
-            errorEmail: req.flash('errorEmail')
-
+            errorEmail: req.flash('errorEmail'),
+            chancePass:req.flash('chancePass')
         });
     }
 
@@ -47,7 +47,21 @@ userController.postSignUp = function (req, res, next){
                     res.redirect('/users/signup');
                     break;
                 case 3:
-                    req.flash('registroOk','Se ha registrado correctamente, ahora puede iniciar sesión')
+                    let hash2=usuario.hash;
+                    let hashEncode=encodeURIComponent(hash2);
+                    let message= {
+                        to: usuario.email,
+                        subject: 'Email de activacion de usuario',
+                        html: '<p>Estimad@ '+usuario.nombre+':<br>Haga click en el enlace para activar tu usuario.</p><br>' +
+                        '<a href="http://localhost:3000/mailer/sendactivate/'+hashEncode+'">Activar usuario de Geekshubs travels.</a>'
+                    }
+                    Email.transporter.sendMail(message,(err,info) =>{
+                        if (err){
+                            next()
+                        }
+                        Email.transporter.close();
+                    })
+                    req.flash('registroOk','Se ha registrado correctamente, en breve recibira un correo para activar su cuenta')
                     res.redirect('/users/login');
                     break;
             }
@@ -67,7 +81,8 @@ userController.signIn = function (req, res, next) {
             errorEmail: req.flash('errorEmail'),
             errorPassword: req.flash('errorPassword'),
             errorEmail2: req.flash('errorEmail2'),
-            correctRecovery:req.flash('correctRecovery')
+            correctRecovery:req.flash('correctRecovery'),
+            errorMailReg:req.flash('errorMailReg')
         });
     }
 };
@@ -94,6 +109,10 @@ userController.postSignIn = function (req, res , next) {
                     req.session.username = usuarioRegistrado.nombre;
                     req.session.isAdmin = usuarioRegistrado.isAdmin;
                     res.redirect('/');
+                    break;
+                case 4:
+                    req.flash('errorPassword', 'Usuario no activo, revisa tu correo y activa tu cuenta')
+                    res.redirect('/users/login');
                     break;
             }
 
@@ -228,7 +247,39 @@ userController.recoverPass=(req,res,next)=>{
         hash: hash3,
     }
     usersModel.recoverPass(usuario,(err,result)=>{
+        if (err){
+            res.status(500).json(err);
+        }else {
+            req.flash('chancePass', 'Cambio de contraseña realizado correctamente, Inicia sesion');
+            res.redirect('/users/login');
+            /*
+            var chancePass = "Cambio de contraseña realizado correctamente, Inicia sesion";
+            res.render('users/signin', {
+                title: 'cambio password',
+                layout: 'templates/default',
+                chancePass: req.flash('chancePass')
+            })
+            */
+        }
+    })
+}
 
+userController.sendactivate=(req,res,next)=>{
+    //console.log(req.params.hash);
+    var hash=decodeURIComponent(req.params.hash);
+    usersModel.sendactivate(hash,function (err,result) {
+        if (err){
+            res.status(500).json(err);
+        }else {
+            if (result == "") {
+                req.flash('errorMailReg', 'Fallo al activar tu cuenta, vuelve a intentarlo mas tarde');
+                res.redirect('/users/login');
+            }
+            else {
+                req.flash('registroOk', 'Usuario activo, ya puedes iniciar sesión');
+                res.redirect('/users/login');
+            }
+        }
     })
 }
 module.exports = userController;

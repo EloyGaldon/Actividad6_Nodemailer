@@ -2,7 +2,7 @@
     <div class="wrapper-adminpanel">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-10 offset-1 panelAdmin">
+                <div class="col-10 offset-1 panelAdmin table-responsive">
                     {{#if correcto}}
                         <div class="alert alert-success">{{correcto}}</div>
                     {{/if}}
@@ -10,7 +10,7 @@
                         <div class="alert alert-warning">{{error}}</div>
                     {{/if}}
                     {{#if destinos.length}}
-                        <table class="table tabla-destinos-adminpanel">
+                        <table class="table">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>

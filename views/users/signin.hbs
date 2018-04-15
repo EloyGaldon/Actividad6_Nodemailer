@@ -9,6 +9,9 @@
                             {{#if registroOk}}
                                 <div class="alert alert-success">{{registroOk}}</div>
                             {{/if}}
+                            {{#if chancePass}}
+                                <div class="alert alert-success">{{chancePass}}</div>
+                            {{/if}}
                             <div>
                                 <h3 class="userLog"> <span class="fas fa-user"></span> Iniciar Sesión </h3>
                             </div>
@@ -29,6 +32,10 @@
                                 ¿Olvidaste tu contraseña?
                             </button>
                         </div>
+                        {{#if errorMailReg}}
+                            <div class="alert alert-warning">{{errorMailReg}}</div>
+                        {{/if}}
+
                         {{#if correctRecovery}}
                             <div class="alert alert-warning">{{correctRecovery}}</div>
                         {{/if}}

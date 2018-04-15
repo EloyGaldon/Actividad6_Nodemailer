@@ -2,7 +2,7 @@
     <div class="wrapper-adminpanel">
     <div class="container-fluid">
     <div class="row">
-    <div class="col-10 offset-1 panelAdmin">
+    <div class="col-10 offset-1 panelAdmin table-responsive">
         {{#if correcto}}
             <div class="alert alert-success">{{correcto}}</div>
         {{/if}}
@@ -10,8 +10,8 @@
             <div class="alert alert-warning">{{error}}</div>
         {{/if}}
         {{#if usuarios.length}}
-            <table class="table tabla-destinos-adminpanel">
-                <thead>
+            <table class="table">
+                <thead class="thead">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
@@ -19,6 +19,7 @@
                     <th scope="col">isAdmin</th>
                     <th scope="col">Activo</th>
                     <th scope="col">Borrar</th>
+                    <th scope="col">RecoverPass</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,7 +32,9 @@
                         <td><input type="checkbox" {{#if active}} checked {{/if}} onclick='window.location.assign("/admins/userpanel/activo/{{id}}")'></td>
                         <td>
                             <button type="button" class="btn btn-danger" onclick='window.location.assign("/admins/userpanel/delete/{{id}}")'><span class="fa fa-trash"></span> </button>
-                            <!--<button type="button" class="btn btn-success" onclick='window.location.assign("/admins/userpanel/edit/{{id}}")'><span class="fa fa-edit"></span></button>-->
+                        </td>
+                        <td class="buttonRecoverPass">
+                            <button type="button" class="btn btn-success" onclick='window.location.assign("/mailer/sendrecover/{{id}}")'><span class="fa fa-key"></span></button>
                         </td>
                     </tr>
                 {{/each}}

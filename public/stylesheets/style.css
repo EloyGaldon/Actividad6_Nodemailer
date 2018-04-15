@@ -54,6 +54,10 @@
     width: 100vw;
 }
 
+.buttonRecoverPass{
+    text-align: center;
+}
+
 .alert.alert-danger {
     display: none;
 }
@@ -422,6 +426,8 @@ footer button:hover,
     background-image: url("/images/vegas.jpg");
 }
 .panelAdmin{
+    padding-right: 0px;
+    padding-left: 0px;
     padding-bottom: 2em;
     background-color: white;
     opacity: 0.9;

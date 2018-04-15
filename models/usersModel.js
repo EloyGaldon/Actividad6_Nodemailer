@@ -26,7 +26,7 @@ Users.signUp = (usuario,cb)=>{
 };
 
 Users.login = (usuario,cb)=>{
-    let comprobacion = [1,2,3];
+    let comprobacion = [1,2,3,4];
     if (!conn) return cb("No se ha podido crear la conexion")
     conn.query('SELECT * FROM cliente WHERE email=?',[usuario.email],function (err,rows) {
         if (err) return cb(error);
@@ -34,13 +34,14 @@ Users.login = (usuario,cb)=>{
             return cb(null,comprobacion[0]);
         } else {
             hash.compare(usuario.password, rows[0].hash, function(err, coincide) {
-                console.log(coincide);
+                //console.log(coincide);
                 if (!coincide){
                     return cb(null,comprobacion[1]);
                 }else{
-                    return cb(null,comprobacion[2],rows[0]);
+                    if(rows[0].active==1){return cb(null,comprobacion[2],rows[0]); }
+                    else {return cb(null,comprobacion[3]);}
                 }
-            });
+            })
         }
     })
 };
@@ -131,10 +132,47 @@ Users.recoverPass=(usuario,cb)=>{
     conn.query('Update cliente set ? where id='+usuario.id+'',usuario,function(err,res){
         if (err) return cb(err);
         else {
-            console.log('error');
+            return cb(null,res);
         }
     })
 }
+Users.sendrecover=(id,cb)=>{
+    if (!conn) return cb("No se ha podido crear la conexion");
+    conn.query('SELECT * from cliente where id=?',id,function(err,res){
+        if (err) return cb(err);
+        else return cb(null,res);
+    })
+}
+
+Users.sendactivate=(hash,cb)=>{
+   // console.log('entro en model');
+    console.log(hash);
+    if (!conn) return cb("No se ha podido crear la conexion");
+    conn.query("SELECT * FROM cliente WHERE hash=?", hash, function (error, resultado) {
+        if (error) return cb(error);
+        else {
+            let active=resultado[0].active;
+            if(active==0){
+                active=1;
+            }
+            else{
+                active=1;
+            }
+            conn.query("Update cliente set active=" + active + " where id=?", resultado[0].id, function (error, resultado) {
+                if (error) return cb(error);
+                return cb(null, resultado);
+            })
+        }
+    })
+    /*
+
+    conn.query("Update cliente set active=1 where hash=?", hash, function (err, res) {
+        if (err) return cb(err);
+        return cb(null, res);
+    })
+    */
+}
+
 module.exports = Users;
 
 
