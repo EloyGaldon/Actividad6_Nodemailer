@@ -2,12 +2,14 @@ var express = require('express');
 var router = express.Router();
 var destinationsController = require('../controllers/destinationController');
 var userController= require('../controllers/userController');
+const Multer = require('multer');
+const upload =  require('../config/multerConf');
 
 router.get('/adminpanel', function(req, res, next) {
-    destinationsController.getDestinations(req, res, next);
+    destinationsController.getAllDestinations(req, res, next);
 });
 
-router.post('/adminpanel/crear', function(req, res, next) {
+router.post('/adminpanel/crear',upload.single('file'), function(req, res, next) {
 
     destinationsController.createDestination(req, res, next);
 });

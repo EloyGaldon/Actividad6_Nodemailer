@@ -60,7 +60,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/admins/adminpanel/crear" method="post">
+                    <form action="/admins/adminpanel/crear" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="nombre_viaje">Nombre:</label>
                             <input type="text" name="nombre" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Nombre Viaje"required>
@@ -73,9 +73,17 @@
                             <label for="descripcion_viaje">Descripcion</label>
                             <input type="text" name="descripcion" class="form-control" id="descripcion" placeholder="Descripcion viaje" required>
                         </div>
+                        <!--
                         <div class="form-group">
                             <label for="imagen">Imagen</label>
                             <input type="text" name="imagen" class="form-control" id="imagen" placeholder="imagen" required>
+                        </div>
+                        -->
+                        <div class="form-group">
+                            <label for="subir_imagen">Subir Imagen</label><br>
+                            <input type="file" name="file" class="form-control">
+                            Subir
+                            </input>
                         </div>
                         <div class="form-group">
                             <label for="imagen">Precio</label>

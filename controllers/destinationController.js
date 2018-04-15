@@ -2,7 +2,7 @@ var destinationsModel = require('../models/destinationsModel');
 var destinationsController = {};
 
 destinationsController.getAllDestinations= (req, res, next)=> {
-    console.log("Estoy entrando");
+    //console.log("Estoy entrando");
     destinationsModel.getAllDestinations((err,destinos)=>{
         if(err) {
             res.status(500).json(err);
@@ -29,7 +29,7 @@ destinationsController.getAllDestinations= (req, res, next)=> {
     })
 };
 destinationsController.getDestinations= (req, res, next)=> {
-    console.log("Estoy entrando");
+   // console.log("Estoy entrando");
     destinationsModel.getDestinations((err,destinos)=>{
         if(err) {
             res.status(500).json(err);
@@ -60,7 +60,7 @@ destinationsController.createDestination = (req, res, next)=>{
         nombre_viaje: req.body.nombre,
         fechas: req.body.fecha,
         descripcion: req.body.descripcion,
-        imagen: req.body.imagen,
+        imagen: "/uploads/" + req.file.filename,
         precio: req.body.precio,
         activo: req.body.activo
     }

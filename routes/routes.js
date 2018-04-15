@@ -53,7 +53,7 @@ router.get('/iniciar',(req,res,next)=>{
 */
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    destinationsModel.getAllDestinations((err,destinos)=>{
+    destinationsModel.getDestinations((err,destinos)=>{
         if(err) {
             res.status(500).json(err);
         }else{
