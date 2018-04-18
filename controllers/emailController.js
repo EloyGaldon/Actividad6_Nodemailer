@@ -4,7 +4,7 @@ var emailController = {};
 
 emailController.recovery=function (req, res, next){
 
-    usersModel.recovery(email,function (err,resultado) {
+    usersModel.recovery(req.body.email,function (err,resultado) {
         if (err){
             res.status(500).json(err);
         }else{
